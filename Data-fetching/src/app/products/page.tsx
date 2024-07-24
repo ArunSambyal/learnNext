@@ -1,7 +1,7 @@
 
 import Link from "next/link";
-
-export const fetchCache = "default-cache";
+// import { cookies } from "next/headers";
+// export const fetchCache = "default-cache";
 
 type Products = {
     id: number,
@@ -13,12 +13,16 @@ type Products = {
 
 export default async function ProductsPage() {
 
-    const res = await fetch("http://localhost:3001/products", {
-        cache: "no-store"
+    const res = await fetch("http://localhost:3001/products",{
+        next:{
+            revalidate:10 //revalidate the req 10seconds 
+        }
     })
     const user = await res.json()
-    const detailsResponse = await fetch("http://localhost:3001/products/1")
-    const details = await detailsResponse.json()
+    // const cookiesStore = cookies()
+    // cookiesStore.get("theme")
+    // const detailsResponse = await fetch("http://localhost:3001/products/1")
+    // const details = await detailsResponse.json()
     console.log(user);
     return (
         <>
@@ -31,7 +35,7 @@ export default async function ProductsPage() {
                         <h1>{users.title}</h1>
                         <h2>{users.price}</h2>
                         <h3>{users.description}</h3>
-                        <h2>{details.price}</h2>
+                        {/* <h2>{details.price}</h2> */}
                     </div>
                 )}
             </div>
