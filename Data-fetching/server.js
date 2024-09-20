@@ -2,9 +2,7 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middleware = jsonServer.defaults();
-
 server.use(middleware);
-
 server.use((req, res, next) => {
   console.log("request Received");
   res.header("Access-Control-Allow-Origin", "*");
@@ -12,7 +10,6 @@ server.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST,PUT,DELETE,PATCH,OPTIONS"
   );
-
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With,Content-Type,Accept"
